@@ -3,7 +3,7 @@ import { cartDAO, productDAO } from '../databases'
 
 export const get = {
   renderNotFoundPage: (req: Request, res: Response) => {
-    return res.status(404).render('404')
+    return res.status(404).render('404', { title: 'Pagina no encontrada' })
   },
   renderHomePage: async (req: Request, res: Response) => {
     const products = (await productDAO.getAll()) || []

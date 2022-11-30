@@ -9,8 +9,7 @@ export const requestLogger = (
   logger.info(
     `User${req.isAuthenticated() ? '' : ' not'} authenticated request type ${
       req.method
-    } to ${req.originalUrl}`
+    } to ${req.originalUrl} at ${new Date().toLocaleString()}`
   )
-  console.log(new Date().toLocaleString())
   next()
 }

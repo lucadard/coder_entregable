@@ -2,7 +2,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       PORT?: string
-      MONGO_PASSWORD?: string
+      MONGO_URL?: string
       SELECTED_DAO: 'archivo' | 'memoria' | 'mongodb' | 'firebase'
       NODE_ENV: 'production' | 'development'
     }
