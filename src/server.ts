@@ -28,8 +28,8 @@ app.use(sessionHandler)
 app.use(passportMiddleware)
 app.use(passportSessionHandler)
 
-app.set('view engine', 'hbs')
 app.engine('hbs', hbsConfig)
+app.set('view engine', 'hbs')
 
 app.use('/', pagesRouter)
 app.use('/auth', authRouter)

@@ -8,7 +8,11 @@ import { requestLogger } from '../middlewares/requestLogger'
 
 export const router = Router()
 
-router.get('/', requestLogger, get.renderHomePage)
+router.get(
+  '/',
+  requestLogger,
+  get.renderHomePage
+)
 router.get('/cart', authentication, requestLogger, get.renderUserCart)
 
 router.get('/auth/login', requestLogger, get.renderLoginPage)

@@ -3,11 +3,11 @@ import { cartDAO, productDAO } from '../databases'
 
 export const get = {
   renderNotFoundPage: (req: Request, res: Response) => {
-    res.status(404).render('404')
+    return res.status(404).render('404')
   },
   renderHomePage: async (req: Request, res: Response) => {
     const products = (await productDAO.getAll()) || []
-    res.render('index', { user: req.user, products, title: 'Inicio' })
+    return res.render('index', { user: req.user, products, title: 'Inicio' })
   },
   renderUserCart: async (req: any, res: Response) => {
     let cartProducts: any = []
@@ -19,7 +19,7 @@ export const get = {
       cartProducts = products
       price = totalPrice
     }
-    res.render('cart', {
+    return res.render('cart', {
       user: req.user,
       cartProducts,
       price,
@@ -42,9 +42,9 @@ export const get = {
     })
   },
   renderLoginPage: (req: Request, res: Response) => {
-    res.render('login', { title: 'Ingresá' })
+    return res.render('login', { title: 'Ingresá' })
   },
   renderRegisterPage: (req: Request, res: Response) => {
-    res.render('register', { title: 'Registrate' })
+    return res.render('register', { title: 'Registrate' })
   }
 }
