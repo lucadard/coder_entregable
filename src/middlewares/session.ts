@@ -1,12 +1,10 @@
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-import dotenv from 'dotenv'
-if (process.env.NODE_ENV !== 'production') dotenv.config()
+import config from '../databases/config'
 
-const MONGO_URL = `mongodb+srv://lucadard:${process.env.MONGO_PASSWORD}@4coderhouse.hyrwj4z.mongodb.net`
 const mongoStore = MongoStore.create({
-  mongoUrl: MONGO_URL,
+  mongoUrl: config.mongodb.url,
   ttl: 10 * 60 // 10 min
 })
 
