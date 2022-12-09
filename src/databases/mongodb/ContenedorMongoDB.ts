@@ -2,7 +2,7 @@ import mongoose, { Schema, Types } from 'mongoose'
 import { logger } from '../../config/logger'
 
 import config from '../config'
-import { generateId } from '../lib/generateId'
+import { generateId } from '../generateId'
 
 export default class ContenedorMongoDB<T> {
   protected collectionName

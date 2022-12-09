@@ -13,6 +13,7 @@ import { router as cartsRouter } from './routes/cartRouter'
 import { router as randomsRouter } from './routes/randomsRouter'
 import { router as authRouter } from './routes/authRouter'
 import { router as infoRouter } from './routes/infoRouter'
+import { router as messagesRouter } from './routes/messagesRouter'
 
 import { hbsConfig } from './config/engine'
 import { requestLogger } from './middlewares/requestLogger'
@@ -37,6 +38,7 @@ app.use('/api/products', productsRouter)
 app.use('/api/carts', cartsRouter)
 app.use('/api/randoms', randomsRouter)
 app.use('/api/info', infoRouter)
+app.use('/api/messages', messagesRouter)
 
 app.get('*', requestLogger, get.renderNotFoundPage)
 

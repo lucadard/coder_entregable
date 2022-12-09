@@ -39,3 +39,10 @@ export type Cart = {
     amount: number
   }[]
 }
+export type Message = {
+  id: string
+  sender_id: string
+  receiver_id: string
+  timestamp: number
+  content: string
+}

@@ -2,7 +2,7 @@ import { Schema } from 'mongoose'
 import ContenedorMongoDB from './ContenedorMongoDB'
 
 import { User } from '../../types'
-import { generateId } from '../lib/generateId'
+import { generateId } from '../generateId'
 
 /*_________________bCrypt functions_________________*/
 import bcrypt from 'bcrypt'
