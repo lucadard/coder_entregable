@@ -1,33 +1,42 @@
 import { Message as MessageType } from '../types'
 
-function isValid(message: MessageType): MessageType {
+function isValid(message: MessageType): void {
   //haria chequeos de validacion si fuera necesario
-  return message
 }
 
 export default class Message {
-  private id: MessageType['id']
-  private sender_id: MessageType['sender_id']
-  private receiver_id: MessageType['receiver_id']
-  private timestamp: MessageType['timestamp']
-  private content: MessageType['content']
+  private _id: MessageType['id']
+  private _sender_id: MessageType['sender_id']
+  private _receiver_id: MessageType['receiver_id']
+  private _timestamp: MessageType['timestamp']
+  private _content: MessageType['content']
 
   constructor(message: MessageType) {
     isValid(message)
-    this.id = message.id
-    this.sender_id = message.sender_id
-    this.receiver_id = message.receiver_id
-    this.timestamp = message.timestamp
-    this.content = message.content
+    this._id = message.id
+    this._sender_id = message.sender_id
+    this._receiver_id = message.receiver_id
+    this._timestamp = message.timestamp
+    this._content = message.content
   }
 
-  getMessageId = () => this.id
-  getSenderId = () => this.sender_id
-  getReceiverId = () => this.receiver_id
-  getTimestamp = () => this.timestamp
-  getMessageContent = () => this.content
+  get id() {
+    return this._id
+  }
+  get sender_id() {
+    return this._sender_id
+  }
+  get receiver_id() {
+    return this._receiver_id
+  }
+  get timestamp() {
+    return this._timestamp
+  }
+  get content() {
+    return this._content
+  }
 
-  asDto = (): Readonly<MessageType> =>
+  public asDto = (): Readonly<MessageType> =>
     Object.freeze({
       id: this.id,
       sender_id: this.sender_id,

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import { logger } from '../../config/logger'
 
 import config from '../config'
@@ -7,11 +7,12 @@ import { generateId } from '../generateId'
 export default class ContenedorMongoDB<T> {
   protected collectionName
   protected collection
+
   constructor(collectionName: string, schema: Schema<T>) {
     this.collection = mongoose.model(collectionName, schema)
     this.collectionName = collectionName
-    this.connect()
   }
+
   connect = async () => {
     mongoose.connection.on('connected', () =>
       logger.info(`Mongodb: ${this.collectionName} collection connected`)
@@ -44,12 +45,8 @@ export default class ContenedorMongoDB<T> {
       id: generateId(),
       timestamp: +new Date()
     })
-    try {
-      await newItem.save()
-      return newItem
-    } catch (err: any) {
-      throw new Error(err)
-    }
+    await newItem.save()
+    return newItem
   }
 
   updateById = async (id: string, data: any) => {
@@ -59,13 +56,16 @@ export default class ContenedorMongoDB<T> {
     )
     return updatedItem
   }
+
   deleteOne = async (id: string) => {
     const deletedItem = await this.collection.deleteOne({ id })
     return deletedItem
   }
+
   deleteAll = async () => {
     return await this.collection.deleteMany({})
   }
+
   count = async () => {
     return await this.collection.count({})
   }

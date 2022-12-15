@@ -11,7 +11,7 @@ const messageSchema = new Schema<MessageType>({
   content: { type: String, required: true }
 })
 
-export default class MessageDAO extends ContenedorMongoDB<MessageType> {
+export default class MessagesDAO extends ContenedorMongoDB<MessageType> {
   constructor() {
     super('messages', messageSchema)
   }

@@ -1,14 +1,13 @@
 import { generateId } from '../databases/generateId'
-import MessageDAO from './MessageDAO'
-import MessageRepository from './MessageRepository'
+import MessagesRepository from './MessagesRepository'
 import Message from './Message'
 import { Message as MessageType } from '../types'
 
-export default class MessageService {
-  private repository: MessageRepository
+export default class MessagesService {
+  private repository: MessagesRepository
 
-  constructor() {
-    this.repository = new MessageRepository(new MessageDAO())
+  constructor(repository: MessagesRepository) {
+    this.repository = repository
   }
 
   async addMessage(messageData: Omit<MessageType, 'id' | 'timestamp'>) {

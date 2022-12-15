@@ -1,9 +1,9 @@
 import Message from './Message'
-import MessageDAO from './MessageDAO'
+import MessagesDAO from './MessagesDAO'
 
-export default class MessageRepository {
-  private dao: MessageDAO
-  constructor(dao: MessageDAO) {
+export default class MessagesRepository {
+  private dao: MessagesDAO
+  constructor(dao: MessagesDAO) {
     this.dao = dao
   }
 
