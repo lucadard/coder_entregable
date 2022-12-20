@@ -4,10 +4,10 @@
   "description": "",
   "main": "dist/main.js",
   "scripts": {
+    "test": "echo 'Running all tests...' && mocha tests/apirest.carts.test.js && mocha tests/apirest.carts.test.js",
     "build": "webpack",
     "start": "node dist/main.js",
-    "dev": "ts-node main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node main.ts"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +22,10 @@
     "@types/passport": "^1.0.11",
     "@types/passport-local": "^1.0.34",
     "@types/uuid": "^8.3.4",
+    "chai": "^4.3.7",
     "dotenv": "^16.0.3",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3",
     "ts-loader": "^9.3.1",
     "typescript": "^4.8.2",
     "webpack": "^5.74.0",
