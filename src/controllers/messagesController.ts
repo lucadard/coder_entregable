@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { messagesService } from '../negocio/messagesServiceFactory'
+import { messagesService } from '../services'
 
 export const get = {
   getAllMessages: async (req: Request, res: Response) => {

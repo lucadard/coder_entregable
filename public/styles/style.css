@@ -183,3 +183,21 @@ a {
 #errorMsg.show {
   display: block;
 }
+
+#productUpdateForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+#productUpdateForm input {
+  padding: .2rem;
+}
+#productUpdateForm button {
+  margin-top: 0.5rem;
+  width: max-content;
+  height: 1.5rem;
+  
+}
+#productUpdateForm button span{
+  padding: 1rem;
+}

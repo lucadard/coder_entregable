@@ -1,9 +1,9 @@
-import CartDAOFactory from './CartDAOFactory'
-import ProductDAOFactory from './ProductDAOFactory'
-import UserDAOFactory from './UserDAOFactory'
-import MessageDAOFactory from './MessageDAOFactory'
+import CartsDAOFactory from './factories/CartsDAOFactory'
+import ProductsDAOFactory from './factories/ProductsDAOFactory'
+import UsersDAOFactory from './factories/UsersDAOFactory'
+import MessagesDAOFactory from './factories/MessagesDAOFactory'
 
-export const productDAO = ProductDAOFactory.getDao()
-export const cartDAO = CartDAOFactory.getDao()
-export const userDAO = UserDAOFactory.getDao()
-export const messageDAO = MessageDAOFactory.getDao()
+export const messagesDAO = MessagesDAOFactory.getDao()
+export const productsDAO = ProductsDAOFactory.getDao()
+export const cartsDAO = CartsDAOFactory.getDao()
+export const usersDAO = UsersDAOFactory.getDao()

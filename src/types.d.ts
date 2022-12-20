@@ -3,7 +3,7 @@ declare global {
     interface ProcessEnv {
       PORT?: string
       MONGO_URL: string
-      SELECTED_DAO: 'archivo' | 'memoria' | 'mongodb' | 'firebase'
+      SELECTED_DAO: 'memory' | 'mongodb'
       NODE_ENV: 'production' | 'development'
     }
   }
@@ -45,4 +45,26 @@ export type Message = {
   receiver_id: string
   timestamp: number
   content: string
+}
+
+type HasId = {
+  id: string
+}
+
+export type DAOType<T> = {
+  connect?: () => void
+
+  getAll: () => Promise<T[]>
+
+  findById: (id: string) => Promise<T>
+  findByQuery?: (query: {}) => Promise<T>
+  updateById: (id: string, newData: T) => Promise<T | UpdateResult>
+  updateByQuery?: (query: {}, newData: T) => Promise<T | UpdateResult>
+
+  addOne: (newItem: T) => Promise<T>
+
+  deleteOne: (id: string) => Promise<string | DeleteResult>
+  deleteAll: () => Promise<any | DeleteResult>
+
+  count?: () => Promise<number>
 }

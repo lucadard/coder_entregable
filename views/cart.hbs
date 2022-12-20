@@ -11,22 +11,22 @@
                 <div class="product-left">
                 <div class="product-details">
                     <div class="image">
-                    <img src={{product_data.photo_url}} alt="foto de {{product_data.name}}"/>
+                    <img src={{data.photo_url}} alt="foto de {{data.name}}"/>
                     </div>
-                    <h2 class="name">{{product_data.name}}</h2>
+                    <h2 class="name">{{data.name}}</h2>
                 </div>
-                <p class="delete-product-btn" onclick=deleteProductFromCart('{{product_data.id}}','{{../user.id}}')>Eliminar</p>
+                <p class="delete-product-btn" onclick=deleteProductFromCart('{{data.id}}','{{../user.id}}')>Eliminar</p>
                 </div>
                 <div class="stock-details">
                 <div class="amount">
-                <span onclick=deleteProductFromCart('{{product_data.id}}','{{../user.id}}',false)>-</span>
+                <span onclick=deleteProductFromCart('{{data.id}}','{{../user.id}}',false)>-</span>
                     <p>{{amount}}</p>
-                <span onclick=addProductToCart('{{product_data.id}}','{{../user.id}}')>+</span>
+                <span onclick=addProductToCart('{{data.id}}','{{../user.id}}')>+</span>
                 </div>
-                <p class="stock">{{product_data.stock}} disponible(s)</p>
+                <p class="stock">{{data.stock}} disponible(s)</p>
                 </div>
                 <div class="price">
-                <p>${{product_data.cost}}</p>
+                <p>${{cost}}</p>
                 </div>
             </li>
         {{/each}}

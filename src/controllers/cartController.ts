@@ -1,50 +1,70 @@
 import { Request, Response } from 'express'
-import { cartDAO, productDAO } from '../databases'
+import { cartsService } from '../services/index'
+import { User as UserType } from '../types'
 
 export const get = {
+  getUserCart: async (req: Request, res: Response) => {
+    const { id } = req.user as UserType
+    try {
+      const cartProducts = await cartsService.getProductsInCart(id)
+      res.status(200).send({ data: cartProducts })
+    } catch (err) {
+      res.status(404).send({ error: 'Cart not found.' })
+    }
+  },
   getProductsInCart: async (req: Request, res: Response) => {
     const { id } = req.params
-    const cartProducts = (await cartDAO.findById(id))?.products
-    return cartProducts
-      ? res.status(200).send({ data: cartProducts })
-      : res.status(404).send({ error: 'cart not found' })
+    try {
+      const cartProducts = await cartsService.getProductsInCart(id)
+      res.status(200).send({ data: cartProducts })
+    } catch (err) {
+      res.status(404).send({ error: 'Cart not found.' })
+    }
   }
 }
 
 export const post = {
   addProductToCart: async (req: Request, res: Response) => {
-    const { id_user, id_prod } = req.params
-    const product = await productDAO.findById(id_prod)
-    if (!product) return res.status(404).send({ error: 'product not found' })
-    const updatedCart: any = await cartDAO.addProduct(id_user, product.id)
-    return updatedCart
-      ? res.status(200).send({ data: updatedCart })
-      : res.status(404).send({ error: 'cart not found' })
+    const amount = +req.query.amount! || 1
+    const id_prod = req.query.id_prod as string
+    console.log('ID_PROD', id_prod, 'ID_PROD')
+    const { id: id_user } = req.user as UserType
+    try {
+      const updatedCart = await cartsService.addProductToCart(
+        id_user,
+        id_prod,
+        amount
+      )
+      res.status(200).send({ data: updatedCart })
+    } catch (err: any) {
+      res.status(404).send({ error: err.message })
+    }
   }
 }
 
 export const eliminate = {
   deleteAllProductsFromCart: async (req: Request, res: Response) => {
-    const { user_id } = req.params
-    const cart = await cartDAO.emptyCart(user_id)
-    return cart
-      ? res.status(200).send({ data: cart })
-      : res.status(404).send({ error: 'cart not found' })
+    const { id: user_id } = req.user as UserType
+    try {
+      const updatedCart = await cartsService.removeAllProductsFromCart(user_id)
+      res.status(200).send({ data: updatedCart })
+    } catch (err) {
+      res.status(404).send({ error: 'cart not found' })
+    }
   },
+
   deleteOneProductFromCart: async (req: Request, res: Response) => {
-    const { id_user, id_prod } = req.params
+    const { id: id_user } = req.user as UserType
+    const { id_prod } = req.params
     const { deleteAll } = req.query
-
-    const product: any = await productDAO.findById(id_prod)
-    if (!product) return res.status(404).send({ error: 'product not found' })
-
-    const updatedCart =
-      deleteAll === 'true'
-        ? await cartDAO.removeAll(id_user, product.id)
-        : await cartDAO.removeSingle(id_user, product.id)
-
-    return updatedCart
-      ? res.status(200).send({ data: updatedCart })
-      : res.status(404).send({ error: 'cart not found' })
+    try {
+      const updatedCart =
+        deleteAll === 'true'
+          ? await cartsService.removeAllFromKind(id_user, id_prod)
+          : await cartsService.removeOneProductFromCart(id_user, id_prod)
+      res.status(200).send({ data: updatedCart })
+    } catch (err) {
+      res.status(404).send({ error: 'cart not found' })
+    }
   }
 }

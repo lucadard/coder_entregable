@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
-import ContenedorMongoDB from '../databases/mongodb/ContenedorMongoDB'
 
-import { Message as MessageType } from '../types'
+import BaseDAO from '../mongodb/BaseDAO'
+import { Message as MessageType } from '../../types'
 
 const messageSchema = new Schema<MessageType>({
   id: { type: String, required: true },
@@ -11,8 +11,10 @@ const messageSchema = new Schema<MessageType>({
   content: { type: String, required: true }
 })
 
-export default class MessagesDAO extends ContenedorMongoDB<MessageType> {
-  constructor() {
-    super('messages', messageSchema)
+let dao = new BaseDAO('messages', messageSchema)
+
+export default class MessageDAOFactory {
+  static getDao() {
+    return dao
   }
 }

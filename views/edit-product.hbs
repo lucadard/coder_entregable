@@ -18,13 +18,19 @@
               </div>
             </div>
         <form id="productUpdateForm">
-            <input type="text" name="name" placeholder="Nombre" />
-            <input type="text" name="description" placeholder="Descripcion" />
-            <input type="text" name="code" placeholder="Codigo" />
-            <input type="text" name="photo_url" placeholder="Foto" />
-            <input type="number" name="price" min="1" placeholder="Precio" />
-            <input type="number" name="stock" min="0" placeholder="Stock" />
-            <button>Enviar</button>
+            <label for="name">Titulo</label>
+            <input type="text" name="name" placeholder="Nombre" value="{{product.name}}"/>
+            <label for="description">Descripcion</label>
+            <input type="text" name="description" placeholder="Descripcion" value="{{product.description}}"/>
+            <label for="code">Codigo</label>
+            <input type="text" name="code" placeholder="Codigo" value="{{product.code}}"/>
+            <label for="photo_url">Foto</label>
+            <input type="text" name="photo_url" placeholder="Foto" value="{{product.photo_url}}"/>
+            <label for="price">Precio</label>
+            <input type="number" name="price" min="1" placeholder="Precio" value="{{product.price}}"/>
+            <label for="stock">Stock</label>
+            <input type="number" name="stock" min="0" placeholder="Stock" value="{{product.stock}}"/>
+            <button><span>Enviar</span></button>
         </form>
         <p id="errorMsg">Error</p>
         {{else}}

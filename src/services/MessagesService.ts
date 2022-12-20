@@ -1,6 +1,6 @@
-import { generateId } from '../databases/generateId'
-import MessagesRepository from './MessagesRepository'
-import Message from './Message'
+import { randomUUID } from 'crypto'
+import MessagesRepository from '../repositories/MessagesRepository'
+import Generic from '../models/Generic'
 import { Message as MessageType } from '../types'
 
 export default class MessagesService {
@@ -11,8 +11,8 @@ export default class MessagesService {
   }
 
   async addMessage(messageData: Omit<MessageType, 'id' | 'timestamp'>) {
-    const message = new Message({
-      id: generateId(),
+    const message = new Generic<MessageType>({
+      id: randomUUID(),
       timestamp: new Date().valueOf(),
       ...messageData
     })

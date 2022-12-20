@@ -4,27 +4,30 @@ import { authentication } from '../middlewares/authentication'
 
 import { get, post, eliminate } from '../controllers/cartController'
 import { requestLogger } from '../middlewares/requestLogger'
+import { adminAuthorization } from '../middlewares/adminAuthorization'
 
 export const router = Router()
 
-router.get('/:id/products', requestLogger, get.getProductsInCart)
+router.get('/', requestLogger, authentication, get.getUserCart)
 
-router.post(
-  '/:id_user/products/:id_prod',
+router.get(
+  '/:id/products',
   requestLogger,
-  authentication,
-  post.addProductToCart
+  adminAuthorization,
+  get.getProductsInCart
 )
 
+router.post('/add', requestLogger, authentication, post.addProductToCart)
+
 router.delete(
-  '/:user_id',
+  '/',
   authentication,
   requestLogger,
   eliminate.deleteAllProductsFromCart
 )
 
 router.delete(
-  '/:id_user/products/:id_prod',
+  '/product/:id_prod',
   authentication,
   requestLogger,
   eliminate.deleteOneProductFromCart
