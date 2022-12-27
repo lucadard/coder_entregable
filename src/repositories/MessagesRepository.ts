@@ -8,7 +8,7 @@ export default class MessagesRepository {
   }
 
   async save(message: Generic<MessageType>) {
-    await this.dao.addOne(message.asDto())
+    return await this.dao.addOne(message.asDto())
   }
 
   async getAll() {

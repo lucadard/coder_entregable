@@ -16,7 +16,7 @@ export default class MessagesService {
       timestamp: new Date().valueOf(),
       ...messageData
     })
-    await this.repository.save(message)
+    return await this.repository.save(message)
   }
 
   async getAllMessages() {

@@ -2,6 +2,34 @@ import { Request, Response } from 'express'
 
 import { messagesService } from '../services'
 
+export const graphql = {
+  getAllMessages: async () => {
+    try {
+      const messages = await messagesService.getAllMessages()
+      return messages
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  },
+
+  getMessageById: async ({ id }: any) => {
+    try {
+      const message = await messagesService.getMessageById(id)
+      return message
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  },
+  addMessage: async ({ data }: any) => {
+    try {
+      const addedMessage = await messagesService.addMessage(data)
+      return addedMessage
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  }
+}
+
 export const get = {
   getAllMessages: async (req: Request, res: Response) => {
     const messages = await messagesService.getAllMessages()

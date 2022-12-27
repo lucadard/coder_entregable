@@ -1,29 +1,40 @@
 //CARRITO
-async function deleteProductFromCart(id, userId, deleteAll = true) {
-  if (userId === '') return console.log('not logged')
-  const res = await fetch(
-    `/api/carts/${userId}/products/${id}?deleteAll=${deleteAll}`,
-    {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }
-  )
+async function deleteProductFromCart(prod_id, user_id, removeAll = true) {
+  const query = `
+  mutation{
+    removeOneProductFromCart(
+      user_id:"${user_id}", 
+      product_id:"${prod_id}", 
+      removeAll:${removeAll}) 
+      { id }
+  }
+  `
+  const res = await fetch(`/graphql`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ query })
+  })
   const data = await res.json()
   location.reload()
   return data
 }
 
-async function emptyCart(userId) {
-  if (userId === '') return console.log('not logged')
-  const res = await fetch(`/api/carts/${userId}`, {
-    method: 'DELETE',
+async function emptyCart(user_id) {
+  const query = `
+  mutation{
+  removeAllProductsFromCart(user_id:"${user_id}"){ id }
+  } 
+  `
+  const res = await fetch(`/graphql`, {
+    method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify({ query })
   })
   const data = await res.json()
   location.reload()

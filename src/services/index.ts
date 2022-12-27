@@ -11,7 +11,9 @@ import ProductsService from './ProductsService'
 import ProductsRepository from '../repositories/ProductsRepository'
 import ProductsDAOFactory from '../databases/factories/ProductsDAOFactory'
 
-export const productsRepository = new ProductsRepository(ProductsDAOFactory.getDao())
+export const productsRepository = new ProductsRepository(
+  ProductsDAOFactory.getDao()
+)
 export const productsService = new ProductsService(productsRepository)
 
 /*******************************************************/

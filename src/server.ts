@@ -16,6 +16,7 @@ import { router as messagesRouter } from './routes/messagesRouter'
 import { hbsConfig } from './config/engine'
 import { requestLogger } from './middlewares/requestLogger'
 import { get } from './controllers/pagesController'
+import { graphqlMiddleware } from './middlewares/graphqlMiddleware'
 
 const app = express()
 
@@ -30,6 +31,7 @@ app.use(passportSessionHandler)
 app.engine('hbs', hbsConfig)
 app.set('view engine', 'hbs')
 
+app.use('/graphql', graphqlMiddleware)
 app.use('/', pagesRouter)
 app.use('/auth', authRouter)
 app.use('/api/products', productsRouter)

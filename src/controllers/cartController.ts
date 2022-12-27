@@ -2,6 +2,47 @@ import { Request, Response } from 'express'
 import { cartsService } from '../services/index'
 import { User as UserType } from '../types'
 
+export const graphql = {
+  getProductsInCart: async ({ user_id }: any) => {
+    try {
+      const cartProducts = await cartsService.getProductsInCart(user_id)
+      return cartProducts
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  },
+  addProductToCart: async ({ amount, product_id, user_id }: any) => {
+    try {
+      const updatedCart = await cartsService.addProductToCart(
+        user_id,
+        product_id,
+        amount
+      )
+      return updatedCart
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  },
+  removeAllProductsFromCart: async ({ user_id }: any) => {
+    try {
+      const updatedCart = await cartsService.removeAllProductsFromCart(user_id)
+      return updatedCart
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  },
+  removeOneProductFromCart: async ({ user_id, product_id, removeAll }: any) => {
+    try {
+      const updatedCart = removeAll
+        ? await cartsService.removeAllFromKind(user_id, product_id)
+        : await cartsService.removeOneProductFromCart(user_id, product_id)
+      return updatedCart
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  }
+}
+
 export const get = {
   getUserCart: async (req: Request, res: Response) => {
     const { id } = req.user as UserType
@@ -27,7 +68,6 @@ export const post = {
   addProductToCart: async (req: Request, res: Response) => {
     const amount = +req.query.amount! || 1
     const id_prod = req.query.id_prod as string
-    console.log('ID_PROD', id_prod, 'ID_PROD')
     const { id: id_user } = req.user as UserType
     try {
       const updatedCart = await cartsService.addProductToCart(

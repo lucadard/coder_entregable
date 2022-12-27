@@ -24,6 +24,7 @@ export default class ProductsService {
     const product = new Product({
       id: randomUUID(),
       timestamp: new Date().valueOf(),
+      photo_url: productData.photo_url || 'no_photo',
       ...productData
     })
     await this.repository.save(product)

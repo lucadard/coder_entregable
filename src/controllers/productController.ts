@@ -2,11 +2,55 @@ import { Request, Response } from 'express'
 
 import { productsService } from '../services'
 
+export const graphql = {
+  getAllProducts: async () => {
+    try {
+      const products = await productsService.getAllProducts()
+      return products
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  },
+  getProductById: async ({ id }: any) => {
+    try {
+      const product = await productsService.getProductById(id)
+      return product
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  },
+  addProduct: async ({ data }: any) => {
+    console.log(data)
+    try {
+      const newProduct = await productsService.addProduct(data)
+      return newProduct
+    } catch (err: any) {
+      return new Error(err)
+    }
+  },
+  updateProductById: async ({ id, data }: any) => {
+    try {
+      const updatedProduct = await productsService.updateProduct(id, data)
+      return updatedProduct
+    } catch (err: any) {
+      return new Error(err)
+    }
+  },
+  removeProductById: async ({ id }: any) => {
+    try {
+      const deletedProduct = await productsService.removeProduct(id)
+      return deletedProduct
+    } catch (err: any) {
+      return new Error(err)
+    }
+  }
+}
+
 export const get = {
   getAllProducts: async (req: Request, res: Response) => {
     try {
       const products = await productsService.getAllProducts()
-      res.send({ data: products })
+      return products
     } catch (err) {
       res.status(404).send({ error: 'products not found' })
     }

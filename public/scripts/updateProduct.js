@@ -13,18 +13,30 @@ productUpdateForm.addEventListener('submit', (event) => {
     if (error) {
       productUpdateForm.reset()
       errorMsg.classList.add('show')
-    } else location.reload()
+    } 
+    else location.reload()
   })
 })
 
-async function updateProduct(id, newData, callback) {
-  const post = await fetch(`/api/products/${id}`, {
-    method: 'PUT',
+async function updateProduct(id, data, callback) {
+  const query = `
+  mutation{
+    updateProduct(id:"${id}", data: { 
+      code:"${data.code}"
+      name:"${data.name}"
+      description:"${data.description || 'no description'}"
+      photo_url:"${data.photo_url || 'no_photo'}"
+      price:${data.price}
+      stock:${data.stock} }){ id }
+  }
+  `
+  const post = await fetch(`/graphql`, {
+    method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(newData)
+    body: JSON.stringify({ query })
   })
   const res = await post.json()
   return callback(res)
